@@ -1,13 +1,12 @@
-package com.ontimize.hr.boot.core;
+package com.ontimize.hr;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@EnableAspectJAutoProxy(proxyTargetClass = false)
 public class ServerApplication {
 
 	public static void main(String[] args) {

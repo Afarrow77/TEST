@@ -26,16 +26,23 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 @Lazy
 public class CandidateService implements ICandidateService {
 
+	@Autowired
+	private CandidateDao candidateDao;
+	@Autowired
+	private DefaultOntimizeDaoHelper daoHelper;
+
 	/**
 	 * It stores the master service. When you mark it with the @Autowired notation,
 	 * it links automatically without using any setter
 	 */
 	@Autowired
 	private MasterService masterService;
-	@Autowired
-	private DefaultOntimizeDaoHelper daoHelper;
-	@Autowired
-	private CandidateDao candidateDao;
+
+	@Override
+	public EntityResult candidateQuery(Map<String, Object> keyMap, List<String> attrList)
+			throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.candidateDao, keyMap, attrList);
+	}
 
 	/**
 	 * This method adds a new candidate. It removes from the parameters those items
@@ -107,16 +114,6 @@ public class CandidateService implements ICandidateService {
 		return data;
 	}
 
-	/**
-	 * Checks if the data stored in the map passed by parameter exists in the
-	 * database table corresponding to the {@link MasterService} service. If so, it
-	 * replaces the value with the corresponding identifier. In case it does not
-	 * exist, it stores that value and substitutes the element's value in the map
-	 * with its identifier
-	 * 
-	 * @param nonCandidateData Values to be inserted in the tables managed by the
-	 *                         {@link MasterService}
-	 */
 	private void insertNonRelatedData(Map<String, Object> nonCandidateData) {
 		for (Entry<String, Object> entry : nonCandidateData.entrySet()) {
 			Map<String, Object> data = new HashMap<String, Object>();
@@ -185,15 +182,8 @@ public class CandidateService implements ICandidateService {
 	}
 
 	@Override
-	public EntityResult candidateQuery(Map<String, Object> keyMap, List<String> attrList)
-			throws OntimizeJEERuntimeException {
-		// TODO Auto-generated method stub
-		return null;
+	public EntityResult candidateDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+		return this.daoHelper.delete(this.candidateDao, keyMap);
 	}
 
-	@Override
-	public EntityResult candidateDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
